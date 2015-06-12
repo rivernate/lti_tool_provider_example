@@ -9,7 +9,8 @@ It currently only supports LTI2 launches
 To get this running in your development environment, check out the repo then:
 
     bundle install
+    bundle exec rake db:setup
     bundle exec rails s
-    
+
 
 You can add the tool to a tool consumer with the the '/tool_proxy' endpoint

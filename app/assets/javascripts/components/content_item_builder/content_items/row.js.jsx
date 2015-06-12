@@ -8,6 +8,8 @@ ContentItemBuilder.ContentItems.Row = React.createClass({
     mediaTypes: React.PropTypes.array.isRequired,
     title: React.PropTypes.string,
     text: React.PropTypes.string,
+    icon: React.PropTypes.string,
+    thumbnail: React.PropTypes.string,
     type: React.PropTypes.string,
     width: React.PropTypes.string,
     height: React.PropTypes.string,
@@ -34,11 +36,14 @@ ContentItemBuilder.ContentItems.Row = React.createClass({
     var documentTargets = this.props.documentTargets;
     var mediaTypes = this.props.mediaTypes;
 
+
     if (mediaTypes.length > 0) {
       return (
         <tr>
-          <td><input ref="itemTitle" id="title" onChange={this.tableChangeHandler} defaultValue={this.props.itemTitle} type="text"></input></td>
-          <td><input ref="itemText" id="text" onChange={this.tableChangeHandler} defaultValue={this.props.itemText} type="text"></input></td>
+          <td><input ref="itemTitle" id="title" onChange={this.tableChangeHandler} defaultValue={this.props.title} type="text"></input></td>
+          <td><input ref="itemText" id="text" onChange={this.tableChangeHandler} defaultValue={this.props.text} type="text"></input></td>
+          <td><input ref="icon" id="icon" onChange={this.tableChangeHandler} defaultValue={this.props.icon && this.props.icon} type="text"></input></td>
+          <td><input ref="thumbnail" id="thumbnail" onChange={this.tableChangeHandler} defaultValue={this.props.thumbnail && this.props.thumbnail} type="text"></input></td>
           <td>
             <select ref="itemType" id="type" onChange={this.tableChangeHandler}>
               {mediaTypes.map(function (value) {

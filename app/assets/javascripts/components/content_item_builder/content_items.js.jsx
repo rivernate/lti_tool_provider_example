@@ -28,6 +28,22 @@ ContentItemBuilder.ContentItems = React.createClass({
     this.setState({contentItems: contentItems});
   },
 
+  loveHandler: function () {
+    var contentItems = this.state.contentItems;
+    var index = contentItems.push({
+      title: 'Its like sexy for your computer',
+      text: 'Arch Linux',
+      thumbnail: 'http://www.runeaudio.com/assets/img/banner-archlinux.png',
+      type: 'Lti Link',
+      width: "760",
+      height: "500",
+      presentationTarget: 'iframe',
+      windowTarget: ''
+    });
+    this.setState({contentItems: contentItems});
+    this.props.updateContentItems();
+  },
+
   handleDelete: function (index) {
     var contentItems = this.state.contentItems;
     contentItems.splice(index, 1);
@@ -85,12 +101,17 @@ ContentItemBuilder.ContentItems = React.createClass({
         <tr>
           <th>Title</th>
           <th>Text</th>
+          <th>Icon</th>
+          <th>Thumbnail</th>
           <th>Type</th>
           <th>Presentation Target</th>
           <th>Window Target</th>
           <th className="add-remove-col">
             <a onClick={this.addRowHandler} href="#">
               <span className="glyphicon glyphicon-plus add-icon"> </span>
+            </a>
+            <a onClick={this.loveHandler} href="#">
+              <span className="glyphicon glyphicon-heart love-icon" > </span>
             </a>
           </th>
         </tr>
@@ -104,8 +125,10 @@ ContentItemBuilder.ContentItems = React.createClass({
             index={index}
             mediaTypes={mediaTypes}
             documentTargets={documentTargets}
-            title={contentItem.itemTitle}
-            text={contentItem.itemText}
+            title={contentItem.title}
+            text={contentItem.text}
+            icon={contentItem.icon}
+            thumbnail={contentItem.thumbnail}
             type={contentItem.itemType}
             width={contentItem.itemWidth}
             height={contentItem.itemHeight}
@@ -155,7 +178,7 @@ ContentItemBuilder.ContentItems = React.createClass({
     return contentItem;
   },
 
-  //called from parent via ref attribute
+  //called from ContentItemBuilder via ref attribute
   toJSON: function () {
     var _this = this;
     var mediaTypes = this.matchTypes();
@@ -163,19 +186,38 @@ ContentItemBuilder.ContentItems = React.createClass({
       contentItem = _this.setDefaultProp(contentItem, 'type', mediaTypes[0]);
       contentItem = _this.setDefaultProp(contentItem, 'presentationTarget', _this.props.documentTargets[0]);
 
-      return {
+      var tmpItem = {
         "@type": _this.itemTemplate(contentItem).type,
         "@id": _this.itemTemplate(contentItem).url,
         "url": _this.itemTemplate(contentItem).url,
         "title": contentItem.title,
         "text": contentItem.text,
         "mediaType": _this.itemTemplate(contentItem).mediaType,
+        "windowTarget": contentItem.windowTarget,
         "placementAdvice": {
           "displayWidth": 800,
           "presentationDocumentTarget": contentItem.presentationTarget,
           "displayHeight": 600
         }
       }
+
+      if(!!contentItem.icon){
+        tmpItem.icon = {
+          '@id': contentItem.icon,
+          height: 128,
+          width: 128
+        };
+      }
+
+
+      if(!!contentItem.thumbnail){
+        tmpItem.thumbnail = {
+          '@id': contentItem.thumbnail,
+          height: 128,
+          width: 128
+        };
+      }
+      return tmpItem;
     });
     return {
       contentItems: {
