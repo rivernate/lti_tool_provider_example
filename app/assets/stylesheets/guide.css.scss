@@ -1,5 +1,6 @@
 body {
   background-color: #eee;
+  padding: 0 50px 20px;
 }
 .form-signin {
   max-width: 430px;
@@ -44,6 +45,7 @@ table {
 table thead th {
   background-color: #595959;
   color: #fff;
+  padding: 2px 4px;
 }
 
 table td {
@@ -68,7 +70,10 @@ table td {
   color: red;
 }
 
+.love-icon {
+  color: #FF69B4;
+}
+
 .message-type select {
   width: 50%;
 }
-
