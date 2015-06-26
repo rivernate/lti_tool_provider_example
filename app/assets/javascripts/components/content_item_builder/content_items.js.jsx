@@ -60,7 +60,7 @@ ContentItemBuilder.ContentItems = React.createClass({
     switch (contentItem.type) {
       case "Lti Link":
         retVal.url = this.props.ltiLaunchUrl;
-        retVal.type = 'LtiLink';
+        retVal.type = 'LtiLinkItem';
         retVal.mediaType = 'application/vnd.ims.lti.v1.ltilink';
         break;
       case "File Item":
