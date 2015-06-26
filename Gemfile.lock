@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/rivernate/rails_lti2_provider.git
-  revision: 77adec564c4d0c51f84807768d5a58cd877cfaff
-  ref: 77adec5
+  revision: 2e59be04838f147802deae32c293c5120c4809d7
+  ref: 2e59be
   specs:
     rails_lti2_provider (0.0.1)
-      ims-lti (~> 2.0.0.beta.22)
+      ims-lti (~> 2.0.0.beta.27)
       rails (~> 4.1.6)
 
 GEM
@@ -55,7 +55,7 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     hike (1.2.3)
     i18n (0.7.0)
-    ims-lti (2.0.0.beta.26)
+    ims-lti (2.0.0.beta.27)
       builder
       faraday (~> 0.8)
       faraday_middleware (~> 0.8)
@@ -174,3 +174,6 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   unicorn
+
+BUNDLED WITH
+   1.10.1
