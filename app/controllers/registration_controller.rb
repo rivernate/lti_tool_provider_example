@@ -49,6 +49,7 @@ class RegistrationController < ApplicationController
     mh = rh.message.first
     mh.parameter = parameters.map { |var, val| IMS::LTI::Models::Parameter.new(name: val['name'], variable: var) }
     rh.ext_placements = placements.keys
+    mh.enabled_capability = placements.keys
     tool_proxy.custom = tool_settings if tool_settings
     registration.update(tool_proxy_json: tool_proxy.to_json)
 
