@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/rivernate/rails_lti2_provider.git
-  revision: 2e59be04838f147802deae32c293c5120c4809d7
-  ref: 2e59be
+  revision: 4a9c86759b7f523d691d90dfdb7e0b1a341d0b66
+  ref: 4a9c86759b7f523d691d90dfdb7e0b1a341d0b66
   specs:
     rails_lti2_provider (0.0.1)
       ims-lti (~> 2.0.0.beta.27)
@@ -176,4 +176,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.10.1
+   1.10.3
