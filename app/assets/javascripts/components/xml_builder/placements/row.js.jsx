@@ -10,7 +10,7 @@ XmlBuilder.Placements.Row = React.createClass({
       <tr>
         <td className="text-center checkbox-col">
           <label className="show">
-            <input type="checkbox" name={ "placements[" + this.props.placementKey + "][enabled]"}/>
+            <input type="checkbox" className="placement" name={ "placements[" + this.props.placementKey + "][enabled]"}/>
           </label>
         </td>
         <td> {this.props.children} </td>

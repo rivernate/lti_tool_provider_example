@@ -6,7 +6,7 @@ var XmlBuilder = React.createClass({
   },
 
   getInitialState: function() {
-    return {xmlUrl: this.props.baseUrl}
+    return {xmlUrl: this.props.baseUrl, generatedXML: "<?xml version='1.0' encoding='utf-8'><test></test></xml>"}
   },
 
   componentDidMount: function() {
@@ -14,7 +14,15 @@ var XmlBuilder = React.createClass({
   },
 
   formChangeHandler: function () {
-    this.setState({xmlUrl: this.props.baseUrl + "?" + $(this.refs.xmlForm.getDOMNode()).serialize() });
+    var xml_str = "";
+    var url = this.props.baseUrl + "?" + $(this.refs.xmlForm.getDOMNode()).serialize();
+
+    $.get(url, function(data) {
+      this.setState({
+        xmlUrl: url,
+        generatedXML: (new XMLSerializer()).serializeToString(data)
+      });
+    }.bind(this));
   },
 
   xmlUrlClickHandler: function (e) {
@@ -34,12 +42,30 @@ var XmlBuilder = React.createClass({
           <input onClick={this.xmlUrlClickHandler} style={{cursor: 'text'}} ref="xmlUrl" id="xml-url" value={this.state.xmlUrl} className="form-control form-read-only" readOnly type="text"/>
         </p>
 
-        <form ref="xmlForm" onChange={this.formChangeHandler} method="post">
-          <XmlBuilder.Placements ref="placements" placements={this.props.placements}><strong>Select which Placements you
-            would like to enable</strong></XmlBuilder.Placements>
-          <XmlBuilder.Options ref="ltiOptions"><strong>Set values for width and height</strong></XmlBuilder.Options>
-          <XmlBuilder.CustomParams ref="customParams" onFormChange={formChangeHandler} ><strong>Specify Custom Params</strong></XmlBuilder.CustomParams>
-        </form>
+
+          <div className="row">
+            <div className="col-md-5">
+              <form ref="xmlForm" onChange={this.formChangeHandler} method="post">
+                <XmlBuilder.Placements ref="placements" placements={this.props.placements}><strong>Select which Placements you
+                  would like to enable</strong></XmlBuilder.Placements>
+                <XmlBuilder.Options ref="ltiOptions"><strong>Set values for width and height</strong></XmlBuilder.Options>
+                <XmlBuilder.CustomParams ref="customParams" onFormChange={formChangeHandler} ><strong>Specify Custom Params</strong></XmlBuilder.CustomParams>
+              </form>
+            </div>
+            <div className="col-md-7">
+              <p>
+                <strong>Live XML Preveiw</strong>
+              </p>
+              <div id="generated-xml">
+                <pre>
+                  <code className="xml">
+                    {this.state.generatedXML}
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+
       </div>
     );
   }
