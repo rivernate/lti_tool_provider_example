@@ -22,9 +22,9 @@ class RegistrationController < ApplicationController
       unless service.id.include? 'ToolProxy.collection'
         name = service.id.split(':').last.split('#').last
         col << {
-          name: name,
-          service: "#{tcp.id}##{name}",
-          actions: service.actions
+            name: name,
+            service: "#{tcp.id}##{name}",
+            actions: service.actions
         }
       end
     end
@@ -53,6 +53,20 @@ class RegistrationController < ApplicationController
     tool_proxy.custom = tool_settings if tool_settings
     registration.update(tool_proxy_json: tool_proxy.to_json)
 
-    redirect_to(rails_lti2_provider.submit_proxy_path(registration.id))
+    redirect_to(submit_proxy_path(registration.id))
   end
+
+  def submit_proxy
+    begin
+      registration = RailsLti2Provider::Registration.find(params[:registration_uuid])
+      redirect_to_consumer(register_proxy(registration))
+    rescue IMS::LTI::Errors::ToolProxyRegistrationError => e
+      @error = {
+          tool_proxy_guid: registration.tool_proxy.tool_proxy_guid,
+          response_status: e.response_status,
+          response_body: e.response_body
+      }
+    end
+  end
+
 end
