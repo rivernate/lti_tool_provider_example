@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402153006) do
+ActiveRecord::Schema.define(version: 20150817183400) do
 
   create_table "rails_lti2_provider_lti_launches", force: true do |t|
     t.string   "tool_id"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150402153006) do
 
   create_table "rails_lti2_provider_tools", force: true do |t|
     t.string   "uuid"
-    t.string   "shared_secret"
+    t.text     "shared_secret"
     t.text     "tool_settings"
     t.datetime "created_at"
     t.datetime "updated_at"
