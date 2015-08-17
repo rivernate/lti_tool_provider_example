@@ -74,6 +74,18 @@ table td {
   color: #FF69B4;
 }
 
-.message-type select {
-  width: 50%;
+code.xml {
+  font-size: 10px;
+}
+
+@media only screen and (min-width : 992px) {
+  code.xml {
+    font-size: 10px;
+  }
+}
+
+@media only screen and (min-width : 768px) {
+  code.xml {
+    font-size: 9px;
+  }
 }

@@ -4,6 +4,9 @@ XmlBuilder.Placements = React.createClass({
     placements: React.PropTypes.array
   },
 
+  selectAll: function() {
+    $('input.placement').prop('checked', $(this.refs.cbSelectAll.getDOMNode()).prop('checked'));
+  },
 
   render: function () {
     var placements = this.props.placements;
@@ -13,7 +16,9 @@ XmlBuilder.Placements = React.createClass({
         <table className="table table-condensed">
           <thead>
           <tr>
-            <th className="text-center checkbox-col">Type</th>
+            <th className="text-center checkbox-col">
+              <input type="checkbox" ref="cbSelectAll" onChange={this.selectAll}/>
+            </th>
             <th>Title</th>
             <th>Message Type</th>
           </tr>
