@@ -31,7 +31,7 @@ ContentItemBuilder.ContentItems = React.createClass({
   loveHandler: function () {
     var contentItems = this.state.contentItems;
     var index = contentItems.push({
-      title: 'Its like sexy for your computer',
+      title: 'It\'s amazing',
       text: 'Arch Linux',
       thumbnail: 'http://www.runeaudio.com/assets/img/banner-archlinux.png',
       type: 'Lti Link',
