@@ -62,6 +62,7 @@ ContentItemBuilder.ContentItems = React.createClass({
         retVal.url = this.props.ltiLaunchUrl;
         retVal.type = 'LtiLinkItem';
         retVal.mediaType = 'application/vnd.ims.lti.v1.ltilink';
+        retVal.custom = {'What\'s black and white and red all over?': 'A sunburnt panda'}
         break;
       case "File Item":
         retVal.url = this.props.textFileUrl;
@@ -185,6 +186,7 @@ ContentItemBuilder.ContentItems = React.createClass({
     var items = this.state.contentItems.map(function (contentItem) {
       contentItem = _this.setDefaultProp(contentItem, 'type', mediaTypes[0]);
       contentItem = _this.setDefaultProp(contentItem, 'presentationTarget', _this.props.documentTargets[0]);
+      var custom = _this.itemTemplate(contentItem).custom
 
       var tmpItem = {
         "@type": _this.itemTemplate(contentItem).type,
@@ -207,6 +209,10 @@ ContentItemBuilder.ContentItems = React.createClass({
           height: 128,
           width: 128
         };
+      }
+
+      if(!!custom){
+        tmpItem.custom = custom
       }
 
 
