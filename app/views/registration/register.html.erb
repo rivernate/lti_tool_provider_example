@@ -1,6 +1,7 @@
 <div class="container">
   <h3>Select the capabilities you want to use:</h3>
-
+    <button onclick="$('input:checkbox').prop('checked', true)">Check All</button>
+    <button onclick="$('input:checkbox').prop('checked', false)">Uncheck All</button>
   <form method="post" action="<%= save_capabilities_path %>">
     <input type="hidden" name="reg_id" value="<%= @registration.id %>"/>
 

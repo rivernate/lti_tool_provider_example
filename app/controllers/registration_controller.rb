@@ -18,12 +18,13 @@ class RegistrationController < ApplicationController
         end
       end
     end
+    tcp_url = tcp.id || @registration.registration_request.tc_profile_url
     @services_offered = tcp.services_offered.each_with_object([]) do |service, col|
       unless service.id.include? 'ToolProxy.collection'
         name = service.id.split(':').last.split('#').last
         col << {
             name: name,
-            service: "#{tcp.id}##{name}",
+            service: "#{tcp_url}##{name}",
             actions: service.actions
         }
       end
