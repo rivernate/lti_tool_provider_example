@@ -18,6 +18,7 @@ module CanvasExtensions
     {key: :assignment_selection, name: 'Assignment Selection', message: [:content_item_selection_request, :basic_lti_request]},
     {key: :link_selection, name: 'Link Selection', message: [:content_item_selection_request, :basic_lti_request]},
     {key: :wiki_page_menu, name: 'Wiki Page Menu', message: [:content_item_selection, :basic_lti_request]},
-    {key: :tool_configuration, name: 'Tool Configuration'}
+    {key: :tool_configuration, name: 'Tool Configuration'},
+    {key: :post_grades, name: 'Post Grades'}
   ]
 end
