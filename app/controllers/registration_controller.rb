@@ -7,7 +7,7 @@ class RegistrationController < ApplicationController
 
   def register
     #tool_setting_service = %w(LtiLink.custom.url ToolProxyBinding.custom.url ToolProxy.custom.url)
-    filter_out = %w( basic-lti-launch-request ) #+ tool_setting_service
+    filter_out = %w( basic-lti-launch-request ToolProxyRegistrationRequest )
     tcp = @registration.tool_consumer_profile
     @capabilities = tcp.capability_offered.each_with_object({placements: [], parameters: []}) do |cap, hash|
       unless filter_out.include? cap
@@ -44,9 +44,10 @@ class RegistrationController < ApplicationController
     end
     tool_settings = (params['tool_settings'].present? && JSON.parse(params['tool_settings'])) || nil
     tool_proxy = registration.tool_proxy
-    tool_proxy.tool_profile
+    tool_profile = tool_proxy.tool_profile
+    add_reregistration_handler!(registration, tool_profile)
     tool_proxy.security_contract.tool_service = tool_services if tool_services.present?
-    rh = tool_proxy.tool_profile.resource_handler.first
+    rh = tool_profile.resource_handler.first
     mh = rh.message.first
     mh.parameter = parameters.map { |var, val| IMS::LTI::Models::Parameter.new(name: val['name'], variable: var) }
     rh.ext_placements = placements.keys
@@ -67,6 +68,17 @@ class RegistrationController < ApplicationController
           response_status: e.response_status,
           response_body: e.response_body
       }
+    end
+  end
+
+
+  def add_reregistration_handler!(registration, tool_profile)
+    if (registration.tool_consumer_profile.capability_offered.include?(IMS::LTI::Models::Messages::ToolProxyReregistrationRequest::MESSAGE_TYPE))
+      rereg_mh = IMS::LTI::Models::MessageHandler.new(
+          message_type: IMS::LTI::Models::Messages::ToolProxyReregistrationRequest::MESSAGE_TYPE,
+          path: tool_reregistration_path
+      )
+      tool_profile.message = [rereg_mh]
     end
   end
 

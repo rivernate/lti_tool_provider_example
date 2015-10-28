@@ -23,9 +23,5 @@ module LtiToolProvider
     config.autoload_paths += %W(#{config.root}/lib)
     config.action_dispatch.default_headers.delete "X-Frame-Options"
 
-    config.react.jsx_transform_options = {
-      harmony: true
-    }
-
   end
 end
