@@ -15,6 +15,10 @@ class GuideController < ApplicationController
       platform = CanvasExtensions::PLATFORM
       tc.set_ext_param(platform, :selection_width, query_params[:selection_width])
       tc.set_ext_param(platform, :selection_height, query_params[:selection_height])
+      tc.set_ext_param(platform, :privacy_level, 'public')
+      tc.set_ext_param(platform, :text, 'Extension text')
+      tc.set_ext_param(platform, :icon_url, view_context.asset_url('selector.png'))
+
       query_params[:custom_params].each { |_, v| tc.set_custom_param(v[:name].to_sym, v[:value]) } if query_params[:custom_params]
       query_params[:placements].each { |k, _| create_placement(tc, k.to_sym) } if query_params[:placements]
     end
@@ -33,7 +37,11 @@ class GuideController < ApplicationController
                         else
                           {url: blti_launch_url}
                         end
-    tc.set_ext_param(CanvasExtensions::PLATFORM, :icon_url, view_context.asset_url('selector.png'))
+
+    navigation_params[:icon_url] = view_context.asset_url('selector.png') + "?#{placement_key}"
+    navigation_params[:canvas_icon_class] = "icon-lti"
+    navigation_params[:text] = "#{placement_key} Text"
+
     tc.set_ext_param(CanvasExtensions::PLATFORM, placement_key, navigation_params)
   end
 end
