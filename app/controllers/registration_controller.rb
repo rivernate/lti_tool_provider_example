@@ -2,12 +2,16 @@ class RegistrationController < ApplicationController
   include RailsLti2Provider::ControllerHelpers
 
   before_filter :registration_request, only: :register
+  before_filter :lti_authentication, only: :register, if: :reregistration?
   protect_from_forgery except: :save_capabilities
   after_filter :disable_xframe_header
 
   def register
     #tool_setting_service = %w(LtiLink.custom.url ToolProxyBinding.custom.url ToolProxy.custom.url)
-    filter_out = %w( basic-lti-launch-request ToolProxyRegistrationRequest )
+    filter_out = [
+        IMS::LTI::Models::Messages::BasicLTILaunchRequest::MESSAGE_TYPE,
+        IMS::LTI::Models::Messages::ToolProxyReregistrationRequest::MESSAGE_TYPE
+    ]
     tcp = @registration.tool_consumer_profile
     @capabilities = tcp.capability_offered.each_with_object({placements: [], parameters: []}) do |cap, hash|
       unless filter_out.include? cap
@@ -80,6 +84,12 @@ class RegistrationController < ApplicationController
       )
       tool_profile.message = [rereg_mh]
     end
+  end
+
+  protected
+
+  def reregistration?
+    params[:lti_message_type] ==  IMS::LTI::Models::Messages::ToolProxyReregistrationRequest::MESSAGE_TYPE
   end
 
 end
