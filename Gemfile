@@ -47,8 +47,8 @@ gem 'pg', group: :production
 
 gem 'rails_12factor'
 
-gem 'rails_lti2_provider', git: 'https://github.com/rivernate/rails_lti2_provider.git', ref: '0fa38f0a1e0916f1c3d5adba07b48abaf1ec6e53'
-gem 'ims-lti', '~> 2.0.0.beta.31'
+gem 'rails_lti2_provider', git: 'https://github.com/rivernate/rails_lti2_provider.git', branch: 'rereg'
+gem 'ims-lti', git: 'https://github.com/rivernate/ims-lti.git', branch: 'rereg'
 
 gem 'react-rails', '~> 1.0'
 

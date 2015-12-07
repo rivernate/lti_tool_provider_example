@@ -1,10 +1,20 @@
 GIT
+  remote: https://github.com/rivernate/ims-lti.git
+  revision: 47ba23bac2f33448ff7bcca34160bbfb28ce54ef
+  branch: rereg
+  specs:
+    ims-lti (2.0.0.beta.31)
+      builder
+      faraday (~> 0.8)
+      faraday_middleware (~> 0.8)
+      simple_oauth (= 0.2)
+
+GIT
   remote: https://github.com/rivernate/rails_lti2_provider.git
-  revision: 0fa38f0a1e0916f1c3d5adba07b48abaf1ec6e53
-  ref: 0fa38f0a1e0916f1c3d5adba07b48abaf1ec6e53
+  revision: baadd51591c762ac85f889a3f1a6e7cd90ae3caf
+  branch: rereg
   specs:
     rails_lti2_provider (0.0.1)
-      ims-lti (~> 2.0.0.beta.31)
       rails (~> 4.1.6)
 
 GEM
@@ -59,11 +69,6 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     hike (1.2.3)
     i18n (0.7.0)
-    ims-lti (2.0.0.beta.31)
-      builder
-      faraday (~> 0.8)
-      faraday_middleware (~> 0.8)
-      simple_oauth (= 0.2)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -161,7 +166,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
-  ims-lti (~> 2.0.0.beta.31)
+  ims-lti!
   jbuilder (~> 1.2)
   jquery-rails
   lodash-rails (~> 3.7.0)

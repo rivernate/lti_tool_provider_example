@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817183400) do
+ActiveRecord::Schema.define(version: 20151204000125) do
 
   create_table "rails_lti2_provider_lti_launches", force: true do |t|
-    t.string   "tool_id"
+    t.integer  "tool_id",    limit: 8
     t.string   "nonce"
     t.text     "message"
     t.datetime "created_at"
@@ -28,8 +28,11 @@ ActiveRecord::Schema.define(version: 20150817183400) do
     t.string   "workflow_state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "tool_id"
+    t.integer  "tool_id",                     limit: 8
+    t.text     "correlation_id"
   end
+
+  add_index "rails_lti2_provider_registrations", ["correlation_id"], name: "index_rails_lti2_provider_registrations_on_correlation_id", unique: true
 
   create_table "rails_lti2_provider_tools", force: true do |t|
     t.string   "uuid"
