@@ -4,6 +4,7 @@ ContentItemBuilder.ContentItems = React.createClass({
     initialContentItems: React.PropTypes.array,
     ltiLaunchUrl: React.PropTypes.string,
     textFileUrl: React.PropTypes.string,
+    videoUrl: React.PropTypes.string,
     ccFileUrl: React.PropTypes.string,
     documentTargets: React.PropTypes.array,
     mediaTypes: React.PropTypes.array,
@@ -74,6 +75,10 @@ ContentItemBuilder.ContentItems = React.createClass({
         retVal.type = 'FileItem';
         retVal.mediaType = 'application/zip';
         break;
+      case "Video":
+        retVal.url = this.props.videoUrl;
+        retVal.type = 'LtiLinkItem';
+        retVal.mediaType = 'application/vnd.ims.lti.v1.ltilink';
     }
     return retVal;
   },
@@ -157,6 +162,7 @@ ContentItemBuilder.ContentItems = React.createClass({
       if (contentType.match(allMatch)) {
         supportedTypes.push('Lti Link');
         supportedTypes.push('File Item');
+        supportedTypes.push('Video');
         break;
       } else if (contentType.match(fileItemMatch)) {
         supportedTypes.push('File Item');

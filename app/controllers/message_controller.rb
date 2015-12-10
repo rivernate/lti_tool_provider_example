@@ -2,7 +2,7 @@ class MessageController < ApplicationController
   include RailsLti2Provider::ControllerHelpers
 
   skip_before_action :verify_authenticity_token
-  before_filter :lti_authentication
+  before_filter :lti_authentication, except: :youtube
 
   rescue_from RailsLti2Provider::LtiLaunch::Unauthorized do |ex|
     @error = 'Authentication failed with: ' + case ex.error
@@ -26,7 +26,10 @@ class MessageController < ApplicationController
 
   def content_item_selection
     process_message
+  end
 
+  def youtube
+    redirect_to params[:youtube_url]
   end
 
   private
