@@ -18,6 +18,7 @@ class GuideController < ApplicationController
       tc.set_ext_param(platform, :privacy_level, 'public')
       tc.set_ext_param(platform, :text, 'Extension text')
       tc.set_ext_param(platform, :icon_url, view_context.asset_url('selector.png'))
+      tc.set_ext_param(platform, :domain, request.host_with_port)
 
       query_params[:custom_params].each { |_, v| tc.set_custom_param(v[:name].to_sym, v[:value]) } if query_params[:custom_params]
       query_params[:placements].each { |k, _| create_placement(tc, k.to_sym) } if query_params[:placements]
